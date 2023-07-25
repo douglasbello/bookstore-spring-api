@@ -2,6 +2,10 @@ package br.com.douglasbello.bookstore.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,15 +18,32 @@ public class Author {
     private Integer id;
     private String firstName;
     private String lastName;
+    private String fullName;
+    private LocalDate birthDate;
+    private LocalDate deathDate;
+    private Integer age;
     @OneToMany(mappedBy = "author")
     private List<Book> publishedBooks = new ArrayList<>();
 
     public Author(){}
 
-    public Author(String firstName, String lastName, List<Book> publishedBooks) {
+    public Author(Integer id, String firstName, String lastName, LocalDate birthDate, LocalDate deathDate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.publishedBooks = publishedBooks;
+        fullName = firstName + " " + lastName;
+        this.birthDate = birthDate;
+        this.deathDate = deathDate;
+        setAge();
+    }
+
+    public Author(String firstName, String lastName, String birthDate, String deathDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        fullName = firstName + " " + lastName;
+        setBirthDate(birthDate);
+        setDeathDate(deathDate);
+        setAge();
     }
 
     public Integer getId() {
@@ -49,6 +70,60 @@ public class Author {
         this.lastName = lastName;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public boolean setBirthDate(String birthDate) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            this.birthDate = LocalDate.parse(birthDate, formatter);
+            setAge();
+            return true;
+        } catch (DateTimeParseException exception) {
+            return false;
+        }
+    }
+
+    public LocalDate getDeathDate() {
+        return deathDate;
+    }
+
+    public boolean setDeathDate(String deathDate) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            this.deathDate = LocalDate.parse(deathDate, formatter);
+            setAge();
+            return true;
+        } catch (DateTimeParseException exception) {
+            return false;
+        }
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge() {
+        if (deathDate != null) {
+            Period period = Period.between(birthDate, deathDate);
+            this.age = period.getYears();
+            return;
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        Period period = Period.between(birthDate, currentDate);
+        this.age = period.getYears();
+    }
+
     public List<Book> getBooks() {
         return publishedBooks;
     }
@@ -72,6 +147,8 @@ public class Author {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", age=" + age +
                 ", publishedBooks=" + publishedBooks +
                 '}';
     }

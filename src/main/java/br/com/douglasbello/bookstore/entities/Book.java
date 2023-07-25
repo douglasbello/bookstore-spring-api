@@ -1,5 +1,6 @@
 package br.com.douglasbello.bookstore.entities;
 
+import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -12,8 +13,10 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String overview;
     private Double salePrice;
+    private BookStatus status = BookStatus.AVAILABLE;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private Author author;
@@ -63,6 +66,14 @@ public class Book {
 
     public void setSalePrice(Double salePrice) {
         this.salePrice = salePrice;
+    }
+
+    public BookStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BookStatus status) {
+        this.status = status;
     }
 
     public Author getAuthor() {
