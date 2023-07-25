@@ -15,6 +15,7 @@ public class Book {
     private String title;
     @Column(columnDefinition = "TEXT")
     private String overview;
+    private Integer publishedYear;
     private Double salePrice;
     private BookStatus status = BookStatus.AVAILABLE;
     @ManyToOne
@@ -29,11 +30,29 @@ public class Book {
 
     public Book(){}
 
-    public Book(String title, Author author, String overview, Double salePrice) {
+    public Book(String title, String overview, Integer publishedYear, Double salePrice, BookStatus status) {
         this.title = title;
-        this.author = author;
         this.overview = overview;
+        this.publishedYear = publishedYear;
         this.salePrice = salePrice;
+        this.status = status;
+    }
+
+    public Book(String title, String overview, Integer publishedYear, Double salePrice) {
+        this.title = title;
+        this.overview = overview;
+        this.publishedYear = publishedYear;
+        this.salePrice = salePrice;
+    }
+
+    public Book(String title, String overview, Integer publishedYear, Double salePrice, BookStatus status, Author author, Rent rentedBook) {
+        this.title = title;
+        this.overview = overview;
+        this.publishedYear = publishedYear;
+        this.salePrice = salePrice;
+        this.status = status;
+        this.author = author;
+        this.rentedBook = rentedBook;
     }
 
     public Integer getId() {

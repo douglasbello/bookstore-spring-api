@@ -1,14 +1,19 @@
 package br.com.douglasbello.bookstore.entities;
 
 
+import br.com.douglasbello.bookstore.entities.enums.UserRole;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -17,6 +22,7 @@ public class Customer {
     private String username;
     private String password;
     private String cpf;
+    private UserRole role;
     @ManyToMany
     @JoinTable(
             name = "customer_bought_books",
@@ -29,10 +35,13 @@ public class Customer {
 
     public Customer(){}
 
-    public Customer(String firstName, String lastName, String username, String password, String cpf) {
+    public Customer(String firstName, String lastName, String username, String password, String cpf, UserRole role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.username = username;
         this.password = password;
         this.cpf = cpf;
+        this.role = role;
     }
 
     public Integer getId() {
@@ -99,6 +108,14 @@ public class Customer {
         return firstName + " " + lastName;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -112,4 +129,33 @@ public class Customer {
                 ", rentedBooks=" + rentedBook +
                 '}';
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == UserRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 }

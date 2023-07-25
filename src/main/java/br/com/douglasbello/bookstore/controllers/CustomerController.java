@@ -1,20 +1,23 @@
 package br.com.douglasbello.bookstore.controllers;
 
 import br.com.douglasbello.bookstore.entities.Customer;
-import br.com.douglasbello.bookstore.repositories.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import br.com.douglasbello.bookstore.services.CustomerService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/customers")
 public class CustomerController {
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
-    @PostMapping(value = "/customers")
-    Customer save(@RequestBody Customer customer) {
-        return customerRepository.save(customer);
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    @PostMapping
+    public Customer save(@RequestBody Customer customer) {
+        return customerService.save(customer);
     }
 }
