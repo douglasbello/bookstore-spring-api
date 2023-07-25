@@ -1,35 +1,43 @@
-package entities;
+package br.com.douglasbello.bookstore.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
+import java.util.*;
+
+@Entity
+@Table(name = "books")
 public class Book {
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private String title;
-    private List<Author> author = new ArrayList<>();
     private String overview;
+    private Double salePrice;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private Author author;
+    @JsonIgnore
+    @OneToOne(mappedBy = "book")
+    private Rent rentedBook;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "boughtBooks")
+    private Set<Customer> customersBoughtBooks = new HashSet<>();
 
     public Book(){}
 
-    public Book(long id, String title, String overview) {
-        this.id = id;
-        this.title = title;
-        this.overview = overview;
-    }
-
-    public Book(long id, String title, List<Author> author, String overview) {
-        this.id = id;
+    public Book(String title, Author author, String overview, Double salePrice) {
         this.title = title;
         this.author = author;
         this.overview = overview;
+        this.salePrice = salePrice;
     }
 
-    public long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,8 +57,32 @@ public class Book {
         this.overview = overview;
     }
 
-    public List<Author> getAuthor() {
+    public Double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
+    }
+
+    public Author getAuthor() {
         return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Rent getRentedBook() {
+        return rentedBook;
+    }
+
+    public void setRentedBook(Rent rentedBook) {
+        this.rentedBook = rentedBook;
+    }
+
+    public Set<Customer> getCustomersBoughtBooks() {
+        return customersBoughtBooks;
     }
 
     @Override
@@ -71,8 +103,10 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", author=" + author +
                 ", overview='" + overview + '\'' +
+                ", author=" + author +
+                ", rentedBook=" + rentedBook +
+                ", customersBoughtBooks=" + customersBoughtBooks +
                 '}';
     }
 }
