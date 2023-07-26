@@ -19,7 +19,9 @@ public class AuthorResponseDTO {
         this.id = author.getId();
         this.name = author.getFullName();
         this.birthDate = author.getBirthDate().format(formatter);
-        this.deathDate = author.getDeathDate().format(formatter);
+        if (author.getDeathDate() != null) {
+            this.deathDate = author.getDeathDate().format(formatter);
+        }
         this.age = author.getAge();
     }
 

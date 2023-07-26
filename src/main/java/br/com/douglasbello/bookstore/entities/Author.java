@@ -1,5 +1,6 @@
 package br.com.douglasbello.bookstore.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -22,6 +23,7 @@ public class Author {
     private LocalDate birthDate;
     private LocalDate deathDate;
     private Integer age;
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     private List<Book> publishedBooks = new ArrayList<>();
 

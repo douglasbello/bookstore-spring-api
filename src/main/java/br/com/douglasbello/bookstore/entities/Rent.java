@@ -24,10 +24,10 @@ public class Rent {
 
     public Rent(){}
 
-    public Rent(Double price, LocalDate rentedAt, LocalDate returnDate, Book book, Customer customer) {
+    public Rent(Double price, Book book, Customer customer) {
         this.price = price;
         this.rentedAt = LocalDate.now();
-        this.returnDate = returnDate.plusDays(7);
+        this.returnDate = rentedAt.plusDays(7);
         this.book = book;
         this.customer = customer;
     }
