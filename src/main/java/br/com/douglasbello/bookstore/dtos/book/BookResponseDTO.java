@@ -6,7 +6,7 @@ import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 
 import java.util.Objects;
 
-public class BookDTO {
+public class BookResponseDTO {
     private Integer id;
     private String title;
     private String overview;
@@ -14,9 +14,9 @@ public class BookDTO {
     private BookStatus status;
     private AuthorResponseDTO author;
 
-    public BookDTO(){}
+    public BookResponseDTO(){}
 
-    public BookDTO(Book book) {
+    public BookResponseDTO(Book book) {
         this.id = book.getId();
         this.title = book.getTitle();
         this.overview = book.getOverview();
@@ -76,8 +76,8 @@ public class BookDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookDTO bookDTO = (BookDTO) o;
-        return Objects.equals(id, bookDTO.id);
+        BookResponseDTO bookResponseDTO = (BookResponseDTO) o;
+        return Objects.equals(id, bookResponseDTO.id);
     }
 
     @Override

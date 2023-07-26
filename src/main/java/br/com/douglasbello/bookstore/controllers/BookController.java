@@ -1,7 +1,7 @@
 package br.com.douglasbello.bookstore.controllers;
 
 import br.com.douglasbello.bookstore.dtos.author.AuthorResponseDTO;
-import br.com.douglasbello.bookstore.dtos.book.BookDTO;
+import br.com.douglasbello.bookstore.dtos.book.BookResponseDTO;
 import br.com.douglasbello.bookstore.dtos.book.BookInsertionDTO;
 import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
 import br.com.douglasbello.bookstore.dtos.util.Mapper;
@@ -30,10 +30,10 @@ public class BookController {
     }
 
     @GetMapping(value = "/books")
-    public ResponseEntity<List<BookDTO>> findAll() {
-        List<BookDTO> dtos = bookService.findAll().stream()
+    public ResponseEntity<List<BookResponseDTO>> findAll() {
+        List<BookResponseDTO> dtos = bookService.findAll().stream()
                 .map(book -> {
-                    BookDTO dto = new BookDTO(book);
+                    BookResponseDTO dto = new BookResponseDTO(book);
                     dto.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
                     return dto;
                 })
@@ -47,6 +47,6 @@ public class BookController {
         if (authorService.findById(dto.getAuthorId()) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Author not found."));
         }
-        return ResponseEntity.ok().body(new BookDTO(bookService.save(Mapper.bookInsertionDtoToBook(dto))));
+        return ResponseEntity.ok().body(new BookResponseDTO(bookService.save(Mapper.bookInsertionDtoToBook(dto))));
     }
 }

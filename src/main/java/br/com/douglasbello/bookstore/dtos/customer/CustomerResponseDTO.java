@@ -2,23 +2,23 @@ package br.com.douglasbello.bookstore.dtos.customer;
 
 import br.com.douglasbello.bookstore.entities.Customer;
 
-public class CustomerDTO {
+public class CustomerResponseDTO {
     private Integer id;
     private String username;
 
     private String firstName;
     private String lastName;
 
-    public CustomerDTO(){}
+    public CustomerResponseDTO(){}
 
-    public CustomerDTO(Integer id, String firstName, String lastName, String username) {
+    public CustomerResponseDTO(Integer id, String firstName, String lastName, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
     }
 
-    public CustomerDTO(Customer customer) {
+    public CustomerResponseDTO(Customer customer) {
         this.id = customer.getId();
         this.firstName = customer.getFirstName();
         this.lastName = customer.getLastName();

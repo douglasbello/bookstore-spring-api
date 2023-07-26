@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Entity
-@Table(name = "")
+@Table(name = "rent")
 public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

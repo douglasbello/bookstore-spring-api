@@ -1,6 +1,6 @@
 package br.com.douglasbello.bookstore.controllers;
 
-import br.com.douglasbello.bookstore.dtos.customer.CustomerDTO;
+import br.com.douglasbello.bookstore.dtos.customer.CustomerResponseDTO;
 import br.com.douglasbello.bookstore.dtos.customer.LoginDTO;
 import br.com.douglasbello.bookstore.dtos.customer.SignInDTO;
 import br.com.douglasbello.bookstore.dtos.util.Mapper;
@@ -42,7 +42,7 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "CPF already in use."));
         }
         Customer customer = Mapper.signInDtoToCustomer(dto);
-        return ResponseEntity.ok().body(new CustomerDTO(customerService.save(customer)));
+        return ResponseEntity.ok().body(new CustomerResponseDTO(customerService.save(customer)));
     }
 
     @PostMapping(value = "/login")

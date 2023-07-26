@@ -42,9 +42,9 @@ public class Mocking implements CommandLineRunner {
         Customer napster = new Customer("Douglas", "Bello", "napster", "douglasbello","99999999999");
         napster = customerService.save(napster);
 
-        Rent rent = new Rent(07.80,kiteRunner,napster);
-        kiteRunner.setStatus(BookStatus.RENTED);
-        bookService.save(kiteRunner);
-        rentService.save(rent);
+//        Rent rent = new Rent(07.80,kiteRunner,napster);
+//        kiteRunner.setStatus(BookStatus.RENTED);
+//        bookService.save(kiteRunner);
+//        rentService.save(rent);
     }
 }
