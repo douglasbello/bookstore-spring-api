@@ -1,7 +1,11 @@
 package br.com.douglasbello.bookstore.controllers;
 
-import br.com.douglasbello.bookstore.dtos.*;
-import br.com.douglasbello.bookstore.dtos.mapper.Mapper;
+import br.com.douglasbello.bookstore.dtos.customer.CustomerDTO;
+import br.com.douglasbello.bookstore.dtos.customer.LoginDTO;
+import br.com.douglasbello.bookstore.dtos.customer.SignInDTO;
+import br.com.douglasbello.bookstore.dtos.util.Mapper;
+import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
+import br.com.douglasbello.bookstore.dtos.util.TokenDTO;
 import br.com.douglasbello.bookstore.entities.Customer;
 import br.com.douglasbello.bookstore.security.TokenService;
 import br.com.douglasbello.bookstore.services.CustomerService;

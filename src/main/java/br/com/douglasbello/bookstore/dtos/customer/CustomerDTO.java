@@ -1,4 +1,4 @@
-package br.com.douglasbello.bookstore.dtos;
+package br.com.douglasbello.bookstore.dtos.customer;
 
 import br.com.douglasbello.bookstore.entities.Customer;
 

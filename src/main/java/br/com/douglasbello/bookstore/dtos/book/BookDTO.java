@@ -1,5 +1,6 @@
-package br.com.douglasbello.bookstore.dtos;
+package br.com.douglasbello.bookstore.dtos.book;
 
+import br.com.douglasbello.bookstore.dtos.author.AuthorResponseDTO;
 import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 

@@ -1,8 +1,8 @@
-package br.com.douglasbello.bookstore.dtos.mapper;
+package br.com.douglasbello.bookstore.dtos.util;
 
-import br.com.douglasbello.bookstore.dtos.AuthorInputDTO;
-import br.com.douglasbello.bookstore.dtos.BookInsertionDTO;
-import br.com.douglasbello.bookstore.dtos.SignInDTO;
+import br.com.douglasbello.bookstore.dtos.author.AuthorInputDTO;
+import br.com.douglasbello.bookstore.dtos.book.BookInsertionDTO;
+import br.com.douglasbello.bookstore.dtos.customer.SignInDTO;
 import br.com.douglasbello.bookstore.entities.Author;
 import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.Customer;

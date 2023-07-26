@@ -1,11 +1,10 @@
 package br.com.douglasbello.bookstore.controllers;
 
-import br.com.douglasbello.bookstore.dtos.AuthorResponseDTO;
-import br.com.douglasbello.bookstore.dtos.BookDTO;
-import br.com.douglasbello.bookstore.dtos.BookInsertionDTO;
-import br.com.douglasbello.bookstore.dtos.RequestResponseDTO;
-import br.com.douglasbello.bookstore.dtos.mapper.Mapper;
-import br.com.douglasbello.bookstore.entities.Book;
+import br.com.douglasbello.bookstore.dtos.author.AuthorResponseDTO;
+import br.com.douglasbello.bookstore.dtos.book.BookDTO;
+import br.com.douglasbello.bookstore.dtos.book.BookInsertionDTO;
+import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
+import br.com.douglasbello.bookstore.dtos.util.Mapper;
 import br.com.douglasbello.bookstore.services.AuthorService;
 import br.com.douglasbello.bookstore.services.BookService;
 import jakarta.validation.Valid;

@@ -1,13 +1,11 @@
 package br.com.douglasbello.bookstore.controllers;
 
-import br.com.douglasbello.bookstore.dtos.AuthorInputDTO;
-import br.com.douglasbello.bookstore.dtos.AuthorResponseDTO;
-import br.com.douglasbello.bookstore.dtos.RequestResponseDTO;
-import br.com.douglasbello.bookstore.dtos.mapper.Mapper;
+import br.com.douglasbello.bookstore.dtos.author.AuthorInputDTO;
+import br.com.douglasbello.bookstore.dtos.author.AuthorResponseDTO;
+import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
+import br.com.douglasbello.bookstore.dtos.util.Mapper;
 import br.com.douglasbello.bookstore.entities.Author;
-import br.com.douglasbello.bookstore.repositories.AuthorRepository;
 import br.com.douglasbello.bookstore.services.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

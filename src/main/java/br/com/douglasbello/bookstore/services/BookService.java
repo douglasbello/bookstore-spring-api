@@ -1,7 +1,5 @@
 package br.com.douglasbello.bookstore.services;
 
-import br.com.douglasbello.bookstore.dtos.BookInsertionDTO;
-import br.com.douglasbello.bookstore.dtos.mapper.Mapper;
 import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.repositories.BookRepository;
 import org.springframework.stereotype.Service;
