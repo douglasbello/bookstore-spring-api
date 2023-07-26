@@ -46,6 +46,14 @@ public class Author {
         setAge();
     }
 
+    public Author(String firstName, String lastName, String birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        fullName = firstName + " " + lastName;
+        setBirthDate(birthDate);
+        setAge();
+    }
+
     public Integer getId() {
         return id;
     }

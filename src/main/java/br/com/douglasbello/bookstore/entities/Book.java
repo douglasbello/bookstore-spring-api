@@ -87,6 +87,14 @@ public class Book {
         this.salePrice = salePrice;
     }
 
+    public Integer getPublishedYear() {
+        return publishedYear;
+    }
+
+    public void setPublishedYear(Integer publishedYear) {
+        this.publishedYear = publishedYear;
+    }
+
     public BookStatus getStatus() {
         return status;
     }

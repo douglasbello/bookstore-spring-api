@@ -1,8 +1,5 @@
 package br.com.douglasbello.bookstore.dtos;
 
-import br.com.douglasbello.bookstore.entities.Author;
-import br.com.douglasbello.bookstore.entities.Book;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;

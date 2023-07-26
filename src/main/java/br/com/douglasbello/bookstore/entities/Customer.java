@@ -44,6 +44,14 @@ public class Customer implements UserDetails {
         this.role = role;
     }
 
+    public Customer(String firstName, String lastName, String username, String password, String cpf) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.cpf = cpf;
+    }
+
     public Integer getId() {
         return id;
     }
