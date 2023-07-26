@@ -22,6 +22,14 @@ public class CustomerService implements UserDetailsService {
         return customerRepository.findById(id).get();
     }
 
+    public Customer findCustomerByUsername(String username) {
+        return customerRepository.findCustomerByUsername(username);
+    }
+
+    public Customer findCustomerByCpf(String cpf) {
+        return customerRepository.findCustomerByCpf(cpf);
+    }
+
     public Customer save(Customer customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         return customerRepository.save(customer);

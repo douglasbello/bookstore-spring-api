@@ -1,29 +1,56 @@
 package br.com.douglasbello.bookstore.controllers;
 
-import br.com.douglasbello.bookstore.dtos.CustomerDTO;
-import br.com.douglasbello.bookstore.dtos.SignInDTO;
+import br.com.douglasbello.bookstore.dtos.*;
 import br.com.douglasbello.bookstore.dtos.mapper.Mapper;
 import br.com.douglasbello.bookstore.entities.Customer;
+import br.com.douglasbello.bookstore.security.TokenService;
 import br.com.douglasbello.bookstore.services.CustomerService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/customers")
+@RequestMapping(value = "/api/customers")
 public class CustomerController {
     private final CustomerService customerService;
+    private final AuthenticationManager authenticationManager;
+    private final TokenService tokenService;
 
-    public CustomerController(CustomerService customerService) {
+    public CustomerController(CustomerService customerService, AuthenticationManager authenticationManager, TokenService tokenService) {
         this.customerService = customerService;
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
     }
 
-    @PostMapping
-    public ResponseEntity<CustomerDTO> save(@Valid @RequestBody SignInDTO dto) {
+    @PostMapping(value = "/sign-in")
+    public ResponseEntity<?> signIn(@Valid @RequestBody SignInDTO dto) {
+        if (customerService.findCustomerByUsername(dto.getUsername()) != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "Username already in use."));
+        }
+        if (customerService.findCustomerByCpf(dto.getCpf()) != null) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "CPF already in use."));
+        }
         Customer customer = Mapper.signInDtoToCustomer(dto);
         return ResponseEntity.ok().body(new CustomerDTO(customerService.save(customer)));
+    }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<?> login(@RequestBody LoginDTO dto) {
+        try {
+            var usernamePassword = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
+            var auth = authenticationManager.authenticate(usernamePassword);
+            var token = tokenService.generateToken((Customer) auth.getPrincipal());
+
+            return ResponseEntity.ok().body(new TokenDTO(token));
+        } catch (AuthenticationException exception) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestResponseDTO(HttpStatus.BAD_REQUEST.value(), "Invalid username or password."));
+        }
     }
 }
