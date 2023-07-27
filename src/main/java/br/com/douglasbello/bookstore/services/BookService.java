@@ -28,6 +28,10 @@ public class BookService {
         return bookRepository.save(book);
     }
 
+    public List<Book> findAllByStatus(BookStatus status) {
+        return bookRepository.findAllByStatus(status);
+    }
+
     public Book update(Integer id, Book _new) {
         try {
             Book old = bookRepository.getReferenceById(id);

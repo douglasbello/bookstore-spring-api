@@ -17,6 +17,7 @@ public class Book {
     private String overview;
     private Integer publishedYear;
     private Double salePrice;
+    @Enumerated(EnumType.STRING)
     private BookStatus status = BookStatus.AVAILABLE;
     @ManyToOne
     @JoinColumn(name = "author_id")

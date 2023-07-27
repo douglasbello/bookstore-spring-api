@@ -38,6 +38,10 @@ public class RentService {
         return rentRepository.save(rent);
     }
 
+    public Rent findRentByCustomer(Customer customer) {
+        return rentRepository.findRentByCustomer(customer);
+    }
+
     public RentResponseDTO initializeRentResponseDto(Integer bookId, Customer customer) {
         Book book = bookService.findById(bookId);
         book = bookService.updateStatus(book, BookStatus.RENTED);

@@ -33,13 +33,16 @@ public class RentController {
         this.authorService = authorService;
     }
 
-//    @GetMapping(value = "/{id}")
-//    public ResponseEntity<?> findById(@PathVariable Integer id) {
-//        return ResponseEntity.ok().body(new RentResponseDTO(rentService.findById(id)));
-//    }
+    @GetMapping(value = "/me")
+    public ResponseEntity<?> findCurrentCustomerRent() {
+        if (rentService.findRentByCustomer(customerService.getCurrentCustomer()) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Customer doesn't have any book rented."));
+        }
+        return ResponseEntity.ok().body(new RentResponseDTO(rentService.findRentByCustomer(customerService.getCurrentCustomer())));
+    }
 
     @PostMapping(value = "/{bookId}")
-    public ResponseEntity<?> save(@NotNull(message = "Book id cannot be null.") @Positive(message = "Book id must be positive") @PathVariable Integer bookId) {
+    public ResponseEntity<?> save(@PathVariable Integer bookId) {
         if (bookService.findById(bookId) == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Book not found."));
         }
