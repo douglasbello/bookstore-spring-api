@@ -8,15 +8,13 @@ import br.com.douglasbello.bookstore.entities.Author;
 import br.com.douglasbello.bookstore.services.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api/authors")
 public class AuthorController {
     private final AuthorService authorService;
 
@@ -24,12 +22,12 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @GetMapping(value = "/authors")
+    @GetMapping
     public Set<AuthorResponseDTO> authors() {
-        return authorService.findAll().stream().map(author -> new AuthorResponseDTO(author)).collect(Collectors.toSet());
+        return authorService.findAll().stream().map(AuthorResponseDTO::new).collect(Collectors.toSet());
     }
 
-    @PostMapping(value = "/authors")
+    @PostMapping
     public ResponseEntity<?> save(@RequestBody AuthorInputDTO dto) {
         Author author = new Author();
         if (!author.setBirthDate(dto.getBirthDate())) {

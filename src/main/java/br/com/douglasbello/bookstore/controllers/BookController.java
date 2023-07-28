@@ -5,7 +5,6 @@ import br.com.douglasbello.bookstore.dtos.book.BookResponseDTO;
 import br.com.douglasbello.bookstore.dtos.book.BookInsertionDTO;
 import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
 import br.com.douglasbello.bookstore.dtos.util.Mapper;
-import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 import br.com.douglasbello.bookstore.services.AuthorService;
 import br.com.douglasbello.bookstore.services.BookService;
@@ -20,7 +19,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/api/books")
 public class BookController {
-
     private final BookService bookService;
     private final AuthorService authorService;
 
@@ -31,7 +29,7 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<List<BookResponseDTO>> findAll() {
-        List<BookResponseDTO> dtos = bookService.findAll().stream()
+        List<BookResponseDTO> response = bookService.findAll().stream()
                 .map(book -> {
                     BookResponseDTO dto = new BookResponseDTO(book);
                     dto.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
@@ -39,7 +37,7 @@ public class BookController {
                 })
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok().body(dtos);
+        return ResponseEntity.ok().body(response);
     }
 
     @PostMapping
@@ -65,9 +63,9 @@ public class BookController {
         try {
             BookStatus bookStatus = BookStatus.valueOf(status.toUpperCase());
             List<BookResponseDTO> response = bookService.findAllByStatus(BookStatus.valueOf(status.toUpperCase())).stream().map(book -> {
-                        BookResponseDTO _new = new BookResponseDTO(book);
-                        _new.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
-                        return _new;
+                        BookResponseDTO dto = new BookResponseDTO(book);
+                        dto.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
+                        return dto;
                     }).collect(Collectors.toList());
 
             return ResponseEntity.ok().body(response);
