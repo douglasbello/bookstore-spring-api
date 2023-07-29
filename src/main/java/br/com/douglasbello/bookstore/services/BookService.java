@@ -1,5 +1,6 @@
 package br.com.douglasbello.bookstore.services;
 
+import br.com.douglasbello.bookstore.entities.Author;
 import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 import br.com.douglasbello.bookstore.repositories.BookRepository;
@@ -30,6 +31,10 @@ public class BookService {
 
     public List<Book> findAllByStatus(BookStatus status) {
         return bookRepository.findAllByStatus(status);
+    }
+
+    public List<Book> findAllByAuthor(Author author) {
+        return bookRepository.findAllByAuthor(author);
     }
 
     public Book update(Integer id, Book _new) {

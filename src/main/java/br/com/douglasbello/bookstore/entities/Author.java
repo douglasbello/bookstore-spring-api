@@ -70,6 +70,7 @@ public class Author {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        fullName = firstName + " " + lastName;
     }
 
     public String getLastName() {
@@ -78,14 +79,11 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        fullName = firstName + " " + lastName;
     }
 
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public LocalDate getBirthDate() {

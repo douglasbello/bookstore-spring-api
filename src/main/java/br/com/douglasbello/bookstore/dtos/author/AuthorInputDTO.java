@@ -1,16 +1,18 @@
 package br.com.douglasbello.bookstore.dtos.author;
 
-import java.util.HashSet;
+import jakarta.validation.constraints.NotBlank;
+
 import java.util.Objects;
-import java.util.Set;
 
 public class AuthorInputDTO {
     private Integer id;
+    @NotBlank(message = "Last name cannot be blank.")
     private String firstName;
+    @NotBlank(message = "Last name cannot be blank.")
     private String lastName;
+    @NotBlank(message = "Birth date cannot be blank.")
     private String birthDate;
     private String deathDate;
-    private Set<Integer> publishedBooks = new HashSet<>();
 
     public AuthorInputDTO() {}
 
@@ -62,10 +64,6 @@ public class AuthorInputDTO {
         this.deathDate = deathDate;
     }
 
-    public Set<Integer> getPublishedBooks() {
-        return publishedBooks;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,7 +85,6 @@ public class AuthorInputDTO {
                 ", lastName='" + lastName + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", deathDate='" + deathDate + '\'' +
-                ", publishedBooks=" + publishedBooks +
                 '}';
     }
 }

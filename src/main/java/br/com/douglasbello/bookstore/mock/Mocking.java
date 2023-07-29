@@ -42,6 +42,12 @@ public class Mocking implements CommandLineRunner {
         kiteRunner.setAuthor(khaled);
         kiteRunner = bookService.save(kiteRunner);
 
+        Book thousandSplendidSuns = new Book("A Thousand Splendid Suns", "Propelled by the same superb instinct for storytelling that made The Kite Runner a beloved classic, the #1 New York Times bestseller A Thousand Splendid Suns is at once an incredible chronicle of thirty years of Afghan history and a deeply moving story of family, friendship, faith, and the salvation to be found in love. "
+        , 2008,14.99);
+        thousandSplendidSuns = bookService.save(thousandSplendidSuns);
+        thousandSplendidSuns.setAuthor(khaled);
+        bookService.save(thousandSplendidSuns);
+
         Customer napster = new Customer("Douglas", "Bello", "douglasbello", "douglasbello","99999999999");
         napster = customerService.save(napster);
 
