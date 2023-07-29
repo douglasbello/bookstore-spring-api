@@ -12,6 +12,8 @@ import br.com.douglasbello.bookstore.services.RentService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @Profile("test")
@@ -19,6 +21,7 @@ public class Mocking implements CommandLineRunner {
     private final AuthorService authorService;
     private final BookService bookService;
     private final CustomerService customerService;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final RentService rentService;
 
     public Mocking(AuthorService authorService, BookService bookService, CustomerService customerService, RentService rentService) {
@@ -39,7 +42,7 @@ public class Mocking implements CommandLineRunner {
         kiteRunner.setAuthor(khaled);
         kiteRunner = bookService.save(kiteRunner);
 
-        Customer napster = new Customer("Douglas", "Bello", "napster", "douglasbello","99999999999");
+        Customer napster = new Customer("Douglas", "Bello", "douglasbello", "douglasbello","99999999999");
         napster = customerService.save(napster);
 
 //        Rent rent = new Rent(07.80,kiteRunner,napster);

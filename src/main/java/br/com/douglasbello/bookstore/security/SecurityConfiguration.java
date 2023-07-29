@@ -25,17 +25,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(new AntPathRequestMatcher("/books", HttpMethod.GET.name()))
-                                .permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                                 .permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/customers/sign-in", HttpMethod.POST.name()))
                                 .permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/api/customers/login", HttpMethod.POST.name()))
-                                .permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/books/rent", HttpMethod.POST.name()))
-                                .permitAll()
-                                .requestMatchers(new AntPathRequestMatcher("/api/books/rent/{bookId}", HttpMethod.POST.name()))
                                 .permitAll()
                                 .anyRequest().authenticated()
                 )
