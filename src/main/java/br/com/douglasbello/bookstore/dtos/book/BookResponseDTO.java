@@ -14,7 +14,8 @@ public class BookResponseDTO {
     private BookStatus status;
     private AuthorResponseDTO author;
 
-    public BookResponseDTO(){}
+    public BookResponseDTO() {
+    }
 
     public BookResponseDTO(Book book) {
         this.id = book.getId();
@@ -74,8 +75,8 @@ public class BookResponseDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
         BookResponseDTO bookResponseDTO = (BookResponseDTO) o;
         return Objects.equals(id, bookResponseDTO.id);
     }

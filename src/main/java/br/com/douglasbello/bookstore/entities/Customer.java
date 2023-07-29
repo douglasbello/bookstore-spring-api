@@ -12,10 +12,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table( name = "customers" )
 public class Customer implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
     private String firstName;
     private String lastName;
@@ -26,14 +26,15 @@ public class Customer implements UserDetails {
     @ManyToMany
     @JoinTable(
             name = "customer_bought_books",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
+            joinColumns = @JoinColumn( name = "customer_id" ),
+            inverseJoinColumns = @JoinColumn( name = "book_id" )
     )
     private List<Book> boughtBooks = new ArrayList<>();
-    @OneToOne(mappedBy = "customer")
+    @OneToOne( mappedBy = "customer" )
     private Rent rentedBook;
 
-    public Customer(){}
+    public Customer() {
+    }
 
     public Customer(String firstName, String lastName, String username, String password, String cpf, UserRole role) {
         this.firstName = firstName;
@@ -140,7 +141,7 @@ public class Customer implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role == UserRole.ADMIN) {
+        if ( this.role == UserRole.ADMIN ) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         }
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

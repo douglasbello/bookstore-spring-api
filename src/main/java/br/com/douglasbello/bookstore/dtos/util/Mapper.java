@@ -30,7 +30,7 @@ public class Mapper {
     }
 
     public static Book bookInsertionDtoToBook(BookInsertionDTO dto) {
-        Book book = new Book(dto.getTitle(),dto.getOverview(),dto.getPublishedYear(),dto.getSalePrice());
+        Book book = new Book(dto.getTitle(), dto.getOverview(), dto.getPublishedYear(), dto.getSalePrice());
         book.setAuthor(authorService.findById(dto.getAuthorId()));
         return book;
     }

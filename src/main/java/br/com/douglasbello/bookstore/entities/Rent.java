@@ -7,22 +7,23 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 @Entity
-@Table(name = "rent")
+@Table( name = "rent" )
 public class Rent {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
     private Double price;
     private LocalDate rentedAt;
     private LocalDate returnDate;
     @OneToOne
-    @JoinColumn(name = "book_id")
+    @JoinColumn( name = "book_id" )
     private Book book;
     @OneToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn( name = "customer_id" )
     private Customer customer;
 
-    public Rent(){}
+    public Rent() {
+    }
 
     public Rent(Double price, Book book, Customer customer) {
         this.price = price;
@@ -89,8 +90,8 @@ public class Rent {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
         Rent rent = (Rent) o;
         return Objects.equals(id, rent.id);
     }

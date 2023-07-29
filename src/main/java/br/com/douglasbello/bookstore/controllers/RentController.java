@@ -1,25 +1,17 @@
 package br.com.douglasbello.bookstore.controllers;
 
-import br.com.douglasbello.bookstore.dtos.author.AuthorResponseDTO;
-import br.com.douglasbello.bookstore.dtos.rent.RentInputDTO;
 import br.com.douglasbello.bookstore.dtos.rent.RentResponseDTO;
-import br.com.douglasbello.bookstore.dtos.util.Mapper;
 import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
-import br.com.douglasbello.bookstore.entities.Book;
-import br.com.douglasbello.bookstore.entities.Rent;
 import br.com.douglasbello.bookstore.services.AuthorService;
 import br.com.douglasbello.bookstore.services.BookService;
 import br.com.douglasbello.bookstore.services.CustomerService;
 import br.com.douglasbello.bookstore.services.RentService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/books/rent")
+@RequestMapping( "/api/books/rent" )
 public class RentController {
     private final RentService rentService;
     private final BookService bookService;
@@ -33,17 +25,17 @@ public class RentController {
         this.authorService = authorService;
     }
 
-    @GetMapping(value = "/me")
+    @GetMapping( value = "/me" )
     public ResponseEntity<?> findCurrentCustomerRent() {
-        if (rentService.findRentByCustomer(customerService.getCurrentCustomer()) == null) {
+        if ( rentService.findRentByCustomer(customerService.getCurrentCustomer()) == null ) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Customer doesn't have any book rented."));
         }
         return ResponseEntity.ok().body(new RentResponseDTO(rentService.findRentByCustomer(customerService.getCurrentCustomer())));
     }
 
-    @PostMapping(value = "/{bookId}")
+    @PostMapping( value = "/{bookId}" )
     public ResponseEntity<?> save(@PathVariable Integer bookId) {
-        if (bookService.findById(bookId) == null) {
+        if ( bookService.findById(bookId) == null ) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Book not found."));
         }
         RentResponseDTO response = rentService.initializeRentResponseDto(bookId, customerService.getCurrentCustomer());

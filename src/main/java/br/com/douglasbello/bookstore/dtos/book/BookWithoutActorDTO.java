@@ -10,7 +10,8 @@ public class BookWithoutActorDTO {
     private Double salePrice;
     private BookStatus status;
 
-    public BookWithoutActorDTO(){}
+    public BookWithoutActorDTO() {
+    }
 
     public BookWithoutActorDTO(Book book) {
         this.id = book.getId();

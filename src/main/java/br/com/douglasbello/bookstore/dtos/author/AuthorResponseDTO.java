@@ -12,14 +12,15 @@ public class AuthorResponseDTO {
     private String deathDate;
     private Integer age;
 
-    public AuthorResponseDTO(){}
+    public AuthorResponseDTO() {
+    }
 
     public AuthorResponseDTO(Author author) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         this.id = author.getId();
         this.name = author.getFullName();
         this.birthDate = author.getBirthDate().format(formatter);
-        if (author.getDeathDate() != null) {
+        if ( author.getDeathDate() != null ) {
             this.deathDate = author.getDeathDate().format(formatter);
         }
         this.age = author.getAge();
@@ -67,8 +68,8 @@ public class AuthorResponseDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
         AuthorResponseDTO that = (AuthorResponseDTO) o;
         return Objects.equals(id, that.id);
     }

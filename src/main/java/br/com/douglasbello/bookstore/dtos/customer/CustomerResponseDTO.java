@@ -9,7 +9,8 @@ public class CustomerResponseDTO {
     private String firstName;
     private String lastName;
 
-    public CustomerResponseDTO(){}
+    public CustomerResponseDTO() {
+    }
 
     public CustomerResponseDTO(Integer id, String firstName, String lastName, String username) {
         this.id = id;

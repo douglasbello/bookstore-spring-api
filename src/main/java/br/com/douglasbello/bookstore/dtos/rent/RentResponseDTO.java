@@ -15,7 +15,8 @@ public class RentResponseDTO {
     private BookResponseDTO book;
     private CustomerResponseDTO customer;
 
-    public RentResponseDTO(){}
+    public RentResponseDTO() {
+    }
 
     public RentResponseDTO(Rent rent) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");

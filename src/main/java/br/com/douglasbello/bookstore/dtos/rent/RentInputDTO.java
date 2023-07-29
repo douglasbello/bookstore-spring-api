@@ -3,8 +3,6 @@ package br.com.douglasbello.bookstore.dtos.rent;
 import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.Customer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 public class RentInputDTO {
     @JsonIgnore
@@ -12,7 +10,8 @@ public class RentInputDTO {
     @JsonIgnore
     private Customer customer;
 
-    public RentInputDTO(){}
+    public RentInputDTO() {
+    }
 
     public RentInputDTO(Book book, Customer customer) {
         this.book = book;

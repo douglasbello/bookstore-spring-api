@@ -7,29 +7,30 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name = "books")
+@Table( name = "books" )
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
     private String title;
-    @Column(columnDefinition = "TEXT")
+    @Column( columnDefinition = "TEXT" )
     private String overview;
     private Integer publishedYear;
     private Double salePrice;
-    @Enumerated(EnumType.STRING)
+    @Enumerated( EnumType.STRING )
     private BookStatus status = BookStatus.AVAILABLE;
     @ManyToOne
-    @JoinColumn(name = "author_id")
+    @JoinColumn( name = "author_id" )
     private Author author;
     @JsonIgnore
-    @OneToOne(mappedBy = "book")
+    @OneToOne( mappedBy = "book" )
     private Rent rentedBook;
     @JsonIgnore
-    @ManyToMany(mappedBy = "boughtBooks")
+    @ManyToMany( mappedBy = "boughtBooks" )
     private Set<Customer> customersBoughtBooks = new HashSet<>();
 
-    public Book(){}
+    public Book() {
+    }
 
     public Book(String title, String overview, Integer publishedYear, Double salePrice, BookStatus status) {
         this.title = title;
@@ -126,8 +127,8 @@ public class Book {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
         Book book = (Book) o;
         return id == book.id;
     }

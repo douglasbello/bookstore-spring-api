@@ -12,7 +12,6 @@ import br.com.douglasbello.bookstore.repositories.RentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RentService {
@@ -45,7 +44,7 @@ public class RentService {
     public RentResponseDTO initializeRentResponseDto(Integer bookId, Customer customer) {
         Book book = bookService.findById(bookId);
         book = bookService.updateStatus(book, BookStatus.RENTED);
-        RentInputDTO dto = new RentInputDTO(book,customer);
+        RentInputDTO dto = new RentInputDTO(book, customer);
         Rent rent = Mapper.toRent(dto);
         rent = save(rent);
         RentResponseDTO response = new RentResponseDTO(rent);

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TokenService {
-    @Value("${api.security.token.secret}")
+    @Value( "${api.security.token.secret}" )
     public String SECRET_KEY;
     public final String ISSUER = "douglasbello";
 

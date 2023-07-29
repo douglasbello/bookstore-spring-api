@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/customers")
+@RequestMapping( value = "/api/customers" )
 public class CustomerController {
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
@@ -33,19 +33,19 @@ public class CustomerController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping(value = "/sign-in")
+    @PostMapping( value = "/sign-in" )
     public ResponseEntity<?> signIn(@Valid @RequestBody SignInDTO dto) {
-        if (customerService.findCustomerByUsername(dto.getUsername()) != null) {
+        if ( customerService.findCustomerByUsername(dto.getUsername()) != null ) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "Username already in use."));
         }
-        if (customerService.findCustomerByCpf(dto.getCpf()) != null) {
+        if ( customerService.findCustomerByCpf(dto.getCpf()) != null ) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "CPF already in use."));
         }
         Customer customer = Mapper.signInDtoToCustomer(dto);
         return ResponseEntity.ok().body(new CustomerResponseDTO(customerService.save(customer)));
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping( value = "/login" )
     public ResponseEntity<?> login(@RequestBody LoginDTO dto) {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());

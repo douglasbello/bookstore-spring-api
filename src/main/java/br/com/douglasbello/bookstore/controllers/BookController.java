@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/api/books")
+@RequestMapping( value = "/api/books" )
 public class BookController {
     private final BookService bookService;
     private final AuthorService authorService;
@@ -42,15 +42,15 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody BookInsertionDTO dto) {
-        if (authorService.findById(dto.getAuthorId()) == null) {
+        if ( authorService.findById(dto.getAuthorId()) == null ) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Author not found."));
         }
         return ResponseEntity.ok().body(new BookResponseDTO(bookService.save(Mapper.bookInsertionDtoToBook(dto))));
     }
 
-    @PostMapping(value = "/{bookId}/sell")
+    @PostMapping( value = "/{bookId}/sell" )
     public ResponseEntity<?> sellBook(@PathVariable Integer bookId) {
-        if (bookService.findById(bookId) == null) {
+        if ( bookService.findById(bookId) == null ) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Book not found."));
         }
         BookResponseDTO response = new BookResponseDTO(bookService.findById(bookId));
@@ -58,15 +58,15 @@ public class BookController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping(value = "/status/{status}")
+    @GetMapping( value = "/status/{status}" )
     public ResponseEntity<?> findAllBooksByStatus(@PathVariable String status) {
         try {
             BookStatus bookStatus = BookStatus.valueOf(status.toUpperCase());
             List<BookResponseDTO> response = bookService.findAllByStatus(BookStatus.valueOf(status.toUpperCase())).stream().map(book -> {
-                        BookResponseDTO dto = new BookResponseDTO(book);
-                        dto.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
-                        return dto;
-                    }).collect(Collectors.toList());
+                BookResponseDTO dto = new BookResponseDTO(book);
+                dto.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
+                return dto;
+            }).collect(Collectors.toList());
 
             return ResponseEntity.ok().body(response);
         } catch (IllegalArgumentException exception) {

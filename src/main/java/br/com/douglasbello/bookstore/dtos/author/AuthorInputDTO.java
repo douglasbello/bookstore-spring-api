@@ -6,15 +6,16 @@ import java.util.Objects;
 
 public class AuthorInputDTO {
     private Integer id;
-    @NotBlank(message = "Last name cannot be blank.")
+    @NotBlank( message = "Last name cannot be blank." )
     private String firstName;
-    @NotBlank(message = "Last name cannot be blank.")
+    @NotBlank( message = "Last name cannot be blank." )
     private String lastName;
-    @NotBlank(message = "Birth date cannot be blank.")
+    @NotBlank( message = "Birth date cannot be blank." )
     private String birthDate;
     private String deathDate;
 
-    public AuthorInputDTO() {}
+    public AuthorInputDTO() {
+    }
 
     public AuthorInputDTO(Integer id, String firstName, String lastName, String birthDate, String deathDate) {
         this.id = id;
@@ -66,8 +67,8 @@ public class AuthorInputDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
         AuthorInputDTO authorInputDto = (AuthorInputDTO) o;
         return Objects.equals(id, authorInputDto.id);
     }

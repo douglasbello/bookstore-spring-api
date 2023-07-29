@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "authors")
+@Table( name = "authors" )
 public class Author {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue( strategy = GenerationType.AUTO )
     private Integer id;
     private String firstName;
     private String lastName;
@@ -24,10 +24,11 @@ public class Author {
     private LocalDate deathDate;
     private Integer age;
     @JsonIgnore
-    @OneToMany(mappedBy = "author")
+    @OneToMany( mappedBy = "author" )
     private List<Book> publishedBooks = new ArrayList<>();
 
-    public Author(){}
+    public Author() {
+    }
 
     public Author(Integer id, String firstName, String lastName, LocalDate birthDate, LocalDate deathDate) {
         this.id = id;
@@ -121,7 +122,7 @@ public class Author {
     }
 
     public void setAge() {
-        if (deathDate != null) {
+        if ( deathDate != null ) {
             Period period = Period.between(birthDate, deathDate);
             this.age = period.getYears();
             return;
@@ -138,8 +139,8 @@ public class Author {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
         Author author = (Author) o;
         return id == author.id;
     }
