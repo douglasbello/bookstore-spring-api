@@ -1,7 +1,8 @@
-package br.com.douglasbello.bookstore.services;
+package br.com.douglasbello.bookstore.services.impl;
 
 import br.com.douglasbello.bookstore.entities.Author;
 import br.com.douglasbello.bookstore.repositories.AuthorRepository;
+import br.com.douglasbello.bookstore.services.Common;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,29 +12,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
-public class AuthorService {
+public class AuthorService implements Common<Author> {
     private final AuthorRepository authorRepository;
 
     public AuthorService(AuthorRepository authorRepository) {
         this.authorRepository = authorRepository;
     }
 
+    @Override
     public Author findById(Integer id) {
         return authorRepository.findById(id).orElse(null);
     }
 
+    @Override
     public List<Author> findAll() {
         return authorRepository.findAll();
     }
 
-    public List<Author> findAuthorByName(String name) {
-        return authorRepository.findAuthorsByFullNameContainingIgnoreCase(name);
-    }
-
+    @Override
     public Author save(Author author) {
         return authorRepository.save(author);
     }
 
+    @Override
     public Author update(Integer old, Author _new) {
         try {
             Author entity = authorRepository.findById(old).get();
@@ -44,12 +45,17 @@ public class AuthorService {
         }
     }
 
-    public void deleteById(Integer id) {
+    @Override
+    public void delete(Integer id) {
         try {
             authorRepository.deleteById(id);
         } catch (EmptyResultDataAccessException | DataIntegrityViolationException emptyResultDataAccessException) {
             throw new RuntimeException();
         }
+    }
+
+    public List<Author> findAuthorByName(String name) {
+        return authorRepository.findAuthorsByFullNameContainingIgnoreCase(name);
     }
 
     private void updateData(Author old, Author _new) {

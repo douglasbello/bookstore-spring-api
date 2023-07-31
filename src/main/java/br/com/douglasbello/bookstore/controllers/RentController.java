@@ -2,10 +2,10 @@ package br.com.douglasbello.bookstore.controllers;
 
 import br.com.douglasbello.bookstore.dtos.rent.RentResponseDTO;
 import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
-import br.com.douglasbello.bookstore.services.AuthorService;
-import br.com.douglasbello.bookstore.services.BookService;
-import br.com.douglasbello.bookstore.services.CustomerService;
-import br.com.douglasbello.bookstore.services.RentService;
+import br.com.douglasbello.bookstore.services.impl.AuthorService;
+import br.com.douglasbello.bookstore.services.impl.BookService;
+import br.com.douglasbello.bookstore.services.impl.CustomerService;
+import br.com.douglasbello.bookstore.services.impl.RentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

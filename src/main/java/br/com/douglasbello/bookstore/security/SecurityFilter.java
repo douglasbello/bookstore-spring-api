@@ -1,6 +1,6 @@
 package br.com.douglasbello.bookstore.security;
 
-import br.com.douglasbello.bookstore.services.CustomerService;
+import br.com.douglasbello.bookstore.services.impl.CustomerService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

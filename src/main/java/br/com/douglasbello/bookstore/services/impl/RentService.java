@@ -1,4 +1,4 @@
-package br.com.douglasbello.bookstore.services;
+package br.com.douglasbello.bookstore.services.impl;
 
 import br.com.douglasbello.bookstore.dtos.author.AuthorResponseDTO;
 import br.com.douglasbello.bookstore.dtos.rent.RentInputDTO;
@@ -9,12 +9,15 @@ import br.com.douglasbello.bookstore.entities.Customer;
 import br.com.douglasbello.bookstore.entities.Rent;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 import br.com.douglasbello.bookstore.repositories.RentRepository;
+import br.com.douglasbello.bookstore.services.Common;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RentService {
+public class RentService implements Common<Rent> {
     private final RentRepository rentRepository;
     private final BookService bookService;
     private final AuthorService authorService;
@@ -25,16 +28,35 @@ public class RentService {
         this.authorService = authorService;
     }
 
+    @Override
     public Rent findById(Integer id) {
         return rentRepository.findById(id).orElse(null);
     }
 
-    public List<Rent> getAll() {
+    @Override
+    public List<Rent> findAll() {
         return rentRepository.findAll();
     }
 
+    @Override
     public Rent save(Rent rent) {
         return rentRepository.save(rent);
+    }
+
+    /* doesn't make sense using this method to the Rent class in the business logic. */
+    @Override
+    @Deprecated
+    public Rent update(Integer old, Rent _new) {
+        return null;
+    }
+
+    @Override
+    public void delete(Integer rentId) {
+        try {
+            rentRepository.deleteById(rentId);
+        } catch (EmptyResultDataAccessException | DataIntegrityViolationException e) {
+            throw new RuntimeException();
+        }
     }
 
     public Rent findRentByCustomer(Customer customer) {

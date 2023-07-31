@@ -9,7 +9,7 @@ import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.Customer;
 import br.com.douglasbello.bookstore.entities.Rent;
 import br.com.douglasbello.bookstore.entities.enums.UserRole;
-import br.com.douglasbello.bookstore.services.AuthorService;
+import br.com.douglasbello.bookstore.services.impl.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

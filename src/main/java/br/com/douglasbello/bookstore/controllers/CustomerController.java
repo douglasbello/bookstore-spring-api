@@ -8,7 +8,7 @@ import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
 import br.com.douglasbello.bookstore.dtos.util.TokenDTO;
 import br.com.douglasbello.bookstore.entities.Customer;
 import br.com.douglasbello.bookstore.security.TokenService;
-import br.com.douglasbello.bookstore.services.CustomerService;
+import br.com.douglasbello.bookstore.services.impl.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +65,7 @@ public class CustomerController {
         }
 
         Customer _new = Mapper.signInDtoToCustomer(dto);
-        CustomerResponseDTO response = new CustomerResponseDTO(customerService.update(customerService.getCurrentCustomer(), _new));
+        CustomerResponseDTO response = new CustomerResponseDTO(customerService.update(customerService.getCurrentCustomer().getId(), _new));
         return ResponseEntity.ok().body(response);
     }
 
