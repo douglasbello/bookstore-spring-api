@@ -5,6 +5,7 @@ import br.com.douglasbello.bookstore.dtos.book.BookResponseDTO;
 import br.com.douglasbello.bookstore.dtos.book.BookInsertionDTO;
 import br.com.douglasbello.bookstore.dtos.util.RequestResponseDTO;
 import br.com.douglasbello.bookstore.dtos.util.Mapper;
+import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 import br.com.douglasbello.bookstore.services.AuthorService;
 import br.com.douglasbello.bookstore.services.BookService;
@@ -72,5 +73,34 @@ public class BookController {
         } catch (IllegalArgumentException exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Invalid status, the status are: AVAILABLE, RENTED, SOLD"));
         }
+    }
+
+    @GetMapping( value = "/title/{title}" )
+    public ResponseEntity<?> findAllBooksByTitle(@PathVariable String title) {
+        List<BookResponseDTO> response = bookService.findAllBooksByTitle(title).stream().map(book -> {
+            BookResponseDTO dto = new BookResponseDTO(book);
+            dto.setAuthor(new AuthorResponseDTO(authorService.findById(book.getAuthor().getId())));
+            return dto;
+        }).collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PutMapping( value = "/{bookId} ")
+    public ResponseEntity<?> update(@PathVariable Integer bookId, @Valid @RequestBody BookInsertionDTO _new) {
+        if ( bookService.findById(bookId) == null ) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Book not found."));
+        }
+        BookResponseDTO response = new BookResponseDTO(bookService.update(bookId, Mapper.bookInsertionDtoToBook(_new)));
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping( value = "/{bookId}")
+    public ResponseEntity<?> delete(@PathVariable Integer bookId) {
+        if ( bookService.findById(bookId) == null ) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestResponseDTO(HttpStatus.NOT_FOUND.value(), "Book not found."));
+        }
+        bookService.delete(bookId);
+        return ResponseEntity.noContent().build();
     }
 }

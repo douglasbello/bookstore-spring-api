@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping( value = "/api/customers" )
@@ -56,5 +53,26 @@ public class CustomerController {
         } catch (AuthenticationException exception) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RequestResponseDTO(HttpStatus.BAD_REQUEST.value(), "Invalid username or password."));
         }
+    }
+
+    @PutMapping( value = "/update" )
+    public ResponseEntity<?> update(@Valid @RequestBody SignInDTO dto) {
+        if ( customerService.findCustomerByUsername(dto.getUsername()) != null ) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "Username already in use."));
+        }
+        if ( customerService.findCustomerByCpf(dto.getCpf()) != null ) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new RequestResponseDTO(HttpStatus.CONFLICT.value(), "CPF already in use."));
+        }
+
+        Customer _new = Mapper.signInDtoToCustomer(dto);
+        CustomerResponseDTO response = new CustomerResponseDTO(customerService.update(customerService.getCurrentCustomer(), _new));
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping( value = "/delete ")
+    public ResponseEntity<?> delete() {
+        Integer customerId = customerService.getCurrentCustomer().getId();
+        customerService.delete(customerId);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -23,7 +23,7 @@ public class SignInDTO {
     public SignInDTO() {
     }
 
-    public SignInDTO(@NotNull( message = "First name cannot be null." ) String firstName, @NotNull( message = "First name cannot be null." ) String lastName, String username, String password, String cpf) {
+    public SignInDTO(String firstName, String lastName, String username, String password, String cpf) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;

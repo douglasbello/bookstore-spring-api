@@ -5,6 +5,8 @@ import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
 import br.com.douglasbello.bookstore.repositories.BookRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +37,19 @@ public class BookService {
 
     public List<Book> findAllByAuthor(Author author) {
         return bookRepository.findAllByAuthor(author);
+    }
+
+    public List<Book> findAllBooksByTitle(String title) {
+        title = title.replace("-", " ");
+        return bookRepository.findAllByTitleContainingIgnoreCase(title);
+    }
+
+    public void delete(Integer bookId) {
+        try {
+            bookRepository.deleteById(bookId);
+        } catch (EmptyResultDataAccessException | DataIntegrityViolationException e) {
+            throw new RuntimeException();
+        }
     }
 
     public Book update(Integer id, Book _new) {

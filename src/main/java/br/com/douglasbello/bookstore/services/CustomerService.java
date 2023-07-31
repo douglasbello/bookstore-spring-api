@@ -2,6 +2,9 @@ package br.com.douglasbello.bookstore.services;
 
 import br.com.douglasbello.bookstore.entities.Customer;
 import br.com.douglasbello.bookstore.repositories.CustomerRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService implements UserDetailsService {
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public CustomerService(CustomerRepository customerRepository) {
@@ -40,6 +43,31 @@ public class CustomerService implements UserDetailsService {
         Customer currentCustomer = (Customer) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Customer customer = findCustomerByUsername(currentCustomer.getUsername());
         return customer;
+    }
+
+    public Customer update(Customer old, Customer _new) {
+        try {
+            updateData(old, _new);
+            return customerRepository.save(old);
+        } catch (EntityNotFoundException exception) {
+            throw new RuntimeException();
+        }
+    }
+
+    public void delete(Integer customerId) {
+        try {
+            customerRepository.deleteById(customerId);
+        } catch (EmptyResultDataAccessException | DataIntegrityViolationException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    private void updateData(Customer old, Customer _new) {
+        old.setFirstName(_new.getFirstName());
+        old.setLastName(_new.getLastName());
+        old.setUsername(_new.getUsername());
+        old.setPassword(_new.getPassword());
+        old.setCpf(_new.getCpf());
     }
 
     @Override
