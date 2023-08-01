@@ -25,6 +25,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(new AntPathRequestMatcher("/api/authors/update/{authorId}", HttpMethod.PUT.name())).hasRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                         .permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/customers/sign-in", HttpMethod.POST.name()))

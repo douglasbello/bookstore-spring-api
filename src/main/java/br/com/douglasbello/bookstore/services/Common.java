@@ -2,6 +2,7 @@ package br.com.douglasbello.bookstore.services;
 
 import java.util.List;
 
+/* this interface represents common methods that all services in this project will use. */
 public interface Common<T> {
     public T findById(Integer id);
     public List<T> findAll();

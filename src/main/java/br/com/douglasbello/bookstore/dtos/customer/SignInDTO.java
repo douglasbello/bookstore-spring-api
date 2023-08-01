@@ -1,6 +1,7 @@
 package br.com.douglasbello.bookstore.dtos.customer;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class SignInDTO {
@@ -16,8 +17,9 @@ public class SignInDTO {
     @NotNull( message = "Password cannot be null." )
     @Size( min = 8, max = 255, message = "Password must be between 8 and 255 characters." )
     private String password;
-    @NotNull( message = "Cpf cannot be null." )
+    @NotNull( message = "CPF cannot be null." )
     @Size( min = 11, max = 11, message = "CPF must have exactly 11 characters." )
+    @Pattern(regexp = "^[0-9]+$", message = "Please, provide a valid CPF.")
     private String cpf;
 
     public SignInDTO() {
