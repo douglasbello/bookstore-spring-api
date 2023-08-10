@@ -1,15 +1,23 @@
 package br.com.douglasbello.bookstore.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import br.com.douglasbello.bookstore.entities.enums.UserRole;
-import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import br.com.douglasbello.bookstore.entities.enums.UserRole;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table( name = "customers" )

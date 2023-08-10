@@ -8,6 +8,7 @@ import br.com.douglasbello.bookstore.entities.Book;
 import br.com.douglasbello.bookstore.entities.Customer;
 import br.com.douglasbello.bookstore.entities.Rent;
 import br.com.douglasbello.bookstore.entities.enums.BookStatus;
+import br.com.douglasbello.bookstore.repositories.BookRepository;
 import br.com.douglasbello.bookstore.repositories.RentRepository;
 import br.com.douglasbello.bookstore.services.Common;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -43,9 +44,7 @@ public class RentService implements Common<Rent> {
         return rentRepository.save(rent);
     }
 
-    /* doesn't make sense using this method to the Rent class in the business logic. */
     @Override
-    @Deprecated
     public Rent update(Integer old, Rent _new) {
         return null;
     }
@@ -61,6 +60,10 @@ public class RentService implements Common<Rent> {
 
     public Rent findRentByCustomer(Customer customer) {
         return rentRepository.findRentByCustomer(customer);
+    }
+
+    public Rent findRentByBook(Book book) {
+        return rentRepository.findRentByBook(book);
     }
 
     public RentResponseDTO initializeRentResponseDto(Integer bookId, Customer customer) {

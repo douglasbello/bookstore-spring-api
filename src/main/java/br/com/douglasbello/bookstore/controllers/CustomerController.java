@@ -18,7 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping( value = "/api/customers" )
+@RequestMapping(value = "/api/customers")
 public class CustomerController {
     private final CustomerService customerService;
     private final AuthenticationManager authenticationManager;
